@@ -18,7 +18,8 @@ chatServer.on("connection", (socket) => {
     //获取cookie
     let cookies = getCookie(socket.handshake.headers.cookie);
     let uid = cookies.uuid;
-    //获取访问客户端的ip
+    let sid=socket.id;
+    //获取访问客户端的ip0
     let ip = socket.request.connection.remoteAddress;
     ip = ip.split(":").slice(-1)[0];
     let server_nick='';
@@ -30,41 +31,52 @@ chatServer.on("connection", (socket) => {
         //上线：准备写入数据库的数据(还需要判断当前用户是否是一个新用户)
         clientModel.queryClinetUUID(uid).then((res) => {
             // console.log('查询uuid结果：',res);
-            if (res.length <= 0) {//新用户
-                clientCount++;
-                nick = "游客" + clientCount;
-            } else {//老用户
-                nick = res[0].nick;
-            }
-
-            let data = {
-                uid,
+            var data = {
+                uid:uid,
                 sid: socket.id,
                 nick,
-                ip,
+                ip:ip,
                 status:1
             };
-            //记录上线记录
-            clientModel.insertClientOnLine(data).then((res) => {
-                // console.log('写入成功',res);
-            })
-        })
-        //当用户上线，向客服推送上线的更新提示
-        serverModel.queryOnLineSever().then((res) => {
-            // console.log('在线客服：',res);
-            if (res.length > 0) {
-                clientModel.queryAllOnline().then((data) => {
-                    socket.to(res[0].sid).emit('client-online-event', { data });
+
+           
+            if (res.length <= 0) {//新用户
+                clientCount++;
+                data.nick = "游客" + clientCount;
+                console.log('没有查询到UUID，全新用户',data)
+                  //记录上线记录
+              
+            } else {//老用户
+                data.nick = res[0].nick||'游客x';
+                console.log('查询到UUID，老用户',data ,res[0])//,res[0],data
+                // data.status=0;
+                console.log('UID&SID',uid,sid)
+                clientModel.updateClientSid(uid,sid).then((res)=>{
+                    console.log('更新在线用户sid-2',res.insertId)
                 })
-            } else {
-                console.log('没有客服在线...');
+                  //当用户上线，向客服推送上线的更新提示    
+                  pushClient()
             }
+
+            // 新添加新开启客户页面的客户 不限于同一个浏览器
+            console.log('新上线data:',data)
+            clientModel.insertClientOnLine(data).then((res) => {
+                console.log('写入新上线成功',res.insertId);
+                })
+
+
+          
         })
+      
+
+
+
 
         //离线操作 ： 更新当前用户的状态
         socket.on("disconnect", () => {
             // console.log('用户离线',role);
             clientModel.updateClientStatus(uid, socket.id).then((res) => {console.log('更新客户离线名单',res.insertId) });
+            pushClient()
         })
     } else {
         //客服上线
@@ -81,7 +93,23 @@ chatServer.on("connection", (socket) => {
         socket.on("disconnect", () => {
             serverModel.updateServerStatus(uid, socket.id).then((res) => { console.log('更新客服离线名单',res.insertId)});
         })
+        pushClient();
     }
+
+
+   function pushClient(){
+    serverModel.queryOnLineSever().then((res) => {
+        console.log('在线客服查询完成：');//,res[0]
+     if (res.length > 0) {
+         clientModel.queryAllOnline().then((data) => {
+             socket.to(res[0].sid).emit('client-online-event', { data });
+             console.log('查询在线客户完成')//,data[0]
+         })
+     } else {
+         console.log('没有客服在线...');
+     }
+    })
+   }
 
     //绑定用户发送的消息事件
     socket.on('user-message', (data) => {
@@ -145,7 +173,7 @@ chatServer.on("connection", (socket) => {
       
 
          serverModel.queryOnLineSever().then((res)=>{
-        //    console.log('查询在线客服:',res[0].nick)
+           console.log('查询在线客服:',res[0])
            server_nick=res[0].nick
          })
         //记录聊天

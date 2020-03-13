@@ -22,6 +22,13 @@ const updateClientStatus = ( uuid ,sid )=>{
     return query(sql);
 }
 
+//更新用户的在线状态
+const updateClientSid = ( uuid ,sid )=>{
+    const sql = `UPDATE clients SET sid='${sid}' WHERE uuid = '${uuid}'  AND status =1;`;
+    console.log('更新用户在线SID',sid)
+    return query(sql);
+}
+
 //查询所有的在线用户
 const queryAllOnline = ()=>{
     const sql = `SELECT * FROM clients WHERE status = 1`;
@@ -36,4 +43,5 @@ module.exports = {
     queryClinetUUID,
     updateClientStatus,
     queryAllOnline,
+    updateClientSid 
 }

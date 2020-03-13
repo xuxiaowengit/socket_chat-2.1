@@ -10,6 +10,7 @@ const getOnlineClinet = (req,res)=>{
             msg:"success",
             data
         }
+        console.log('客服端api请求了在线客户列表',data[0])
         res.json(json);
     })
 }
@@ -25,7 +26,7 @@ const getClientChat = (req,res)=>{
             msg:"success",
             data
         }
-        console.log('查询聊天记录:',data)
+        console.log('查询到客户聊天记录:',data[0])
         res.json(json);
     })
 }
@@ -41,7 +42,7 @@ const getServerChat = (req,res)=>{
             msg:"success",
             data
         }
-        console.log('查询客服端历史聊天记录:',data)
+        console.log('查询客服端历史聊天记录:',data[0])
         res.json(json);
     })
 }

@@ -7,7 +7,7 @@ let socket = io.connect("http://127.0.0.1:300?type=server", {
 socket.on("client-online-event", (data) => {
     console.log("游客上线推送...", data);
     //渲染页面内容
-    renderClient(data);
+    renderClient(data); //主动推送
 })
 
 
@@ -35,6 +35,7 @@ let sid = [];
 $('#user-container .user-list ').on('click', 'div.person', function (e) {
     //    console.log(e)
     console.log("div", this)
+    var index=$(this).index()
     choeseUser(this)
 })
 $('#wrapper .user-list2 ').on('click', 'li.person', function (e) {
@@ -49,6 +50,7 @@ function choeseUser(this2) {
     // console.log("this2",this2)
     if ($(this2).hasClass('on')) {
         $(this2).removeClass('on')
+
         uuid = uuid.filter((item) => {
             return item != $(this2).attr("data-uid");
         })
@@ -61,11 +63,18 @@ function choeseUser(this2) {
         uuid.push($(this2).attr("data-uid"))
         sid.push($(this2).attr("data-sid"))
         var  person=$('.person');
-        for(i=0;i<person.length;i++){
-            // console.log(person[i])
-            $(person).eq(i).children(':first').children(':last').remove(); //元素对象集合指能用EQ选择不能直接下标
-        }
+        // for(i=0;i<person.length;i++){
+        //     // console.log(person[i])
+        //     $(person).eq(i).children(':first').children(':last').remove(); //元素对象集合指能用EQ选择不能直接下标
+        // }
+      if( $(this2).children(':first').children(':first').hasClass(' glyphicon-ok')){
+        $(this2).children(':first').children(':first').remove();
+          console.log('含有 glyphicon-ok类')
+      }else{
+          console.log('不含有glyphicon类')
         $(this2).children(':first').append(`<span class=" glyphicon glyphicon-ok"></span>`)
+      }
+
     }
     console.log(uuid, sid)
 
