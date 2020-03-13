@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线客服 - 客服端</title>
+    <!-- <script src="js/jquery-1.8.3.min.js"></script> -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/weipaer.css">
+    <link rel="stylesheet" href="css/server.css">
+    <link rel="stylesheet" href="css/common.css">
+
+    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css"> -->
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
+  
+    <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <!-- <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script> -->
+  
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <!-- <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+ -->
+
+</head>
+
+<body>
+
+
+    <header>
+        <div class="container" id="haederTitle">
+            Node.js + Express + Socket.io + Mysql 构建在线客服聊天系统 ( 客服端 )
+        </div>
+    </header>
+    <div id="wrapper" class="bg-info" style="">
+        <nav class="navbar navbar-inverse bg-success  navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav user-list2" data-toggle="tooltip" data-placement="bottom" title="单击用户列表进行对话">
+                <li class="sidebar-brand" style="text-decoration: node;list-style: none;">
+                    <a href="#" id='h4'>
+                        <h4 class="user-count">在线游客(<span class="count">暂无客户</span>)
+                            <span class="glyphicon glyphicon-chevron-left is-open animated  active fadeInLeft"
+                                data-toggle="offcanvas" id="close"></span>
+                        </h4>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+            <span class="hamb-top " style=""></span>
+            <span class="hamb-middle" style=""></span>
+            <span class="hamb-bottom" style=""></span>
+        </button>
+    </div>
+
+
+
+
+    <div id="user-container" class="is-open animated  active fadeInLeft" style="">
+        <h4 class="user-count" style="text-indent: 1rem;">在线游客(<span style="padding:0 1rem 0 0;"
+                class="count">暂无客户</span>)<span class="glyphicon chevron-left" id="close1"></span>
+        </h4>
+        <div class="user-list" data-toggle="tooltip" data-placement="bottom" title="单击用户列表进行对话">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="chat-info col-md-2"></div>
+        <div class="chat col-md-8">
+            <div class="chat-content" id='chat-content'>
+                <!-- <div class="chat-for-server chat-item">
+                    <div class="chat-item-info">
+                        <div class="chat-item-info-nick">游客12 <span class="time">2020年3月10日12:47:07</span></div>
+                    </div>
+                    <div class="chat-item-detail">
+                        <div class="chat-item-user">
+                            <div class="chat-item-user-thumb">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                        </div>
+                        <div class="chat-item-content">
+                            sdasasdassddasdadsdsdasdadadaddsdasdadadasdadassssssssssssssssssssssssssss
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-for-user chat-item">
+                    <div class="chat-item-info">
+                        <div class="chat-item-info-nick"> 我<span class="time">2020年3月10日12:47:07</span></div>
+                    </div>
+                    <div class="chat-item-detail">
+                        <div class="chat-item-content">
+                            sdasasdassddasdadsdsdasdadadaddsdasdadadasdadassssssssssssssssssssssssssss
+                        </div>
+                        <div class="chat-item-user">
+                            <div class="chat-item-user-thumb">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <h3 style="margin: 25% auto;width: 100%;line-height: 50px;font-size: 1rem;text-align: center;color:orange;">请单击选择左边客户列表进行对话!</h3>
+            </div>
+
+            <div class="chat-tools" style="width: 100%;">
+                <button class="btn btn-primary glyphicon glyphicon-font "> </button>
+                <button class="btn btn-danger glyphicon glyphicon-picture"></button>
+                <button class="btn btn-success glyphicon glyphicon-earphone"></button>
+                <button class="btn btn-info glyphicon glyphicon-phone"></button>
+                <button class="btn btn-warning glyphicon glyphicon-warning-sign"></button>
+                <button class="btn btn-default glyphicon glyphicon-none">工具栏</button>
+            </div>
+
+            <div class="chat-input">
+                <div class="chat-input-content">
+                    <textarea class="form-control" id="message" cols="30" rows="4"></textarea>
+                </div>
+                <div class="chat-input-btn">
+                    <button class="btn btn-success" id='sendMessage'>发送(Shfit + Enter)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var trigger = $('.hamburger');//汉堡按钮
+            // // 小屏左侧栏
+            $('#wrapper').on('click','.hamburger',function () {
+               trigger.toggleClass('is-closed')
+               $('#wrapper').toggleClass('toggled')
+            });
+           $('#wrapper').on('click','#close',function () {
+                console.log('判断toggled')
+                $('#wrapper').toggleClass('toggled')
+                trigger.toggleClass('is-closed')
+            });
+        });
+
+
+    </script>
+
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="/chat/socket.io.js"></script>
+    <script src="js/server.js"></script>
+    <script src="js/flexible.js"></script>
+    <script src="js/zepto.js"></script>
+    <script src="js/js.cookie.min.js"></script>
+
+</body>
+
+</html>

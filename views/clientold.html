@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线客服 - 用户端</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/client.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            Node.js + Express + Socket.io + Mysql 构建在线客服聊天系统 ( 用户端 )
+        </div>
+    </header>
+    <div class="container">
+        <div class="chat-info col-md-2"></div>
+        <div class="chat col-md-8">
+            <div class="chat-content">
+                <div class="chat-for-server chat-item">
+                    <div class="chat-item-info">
+                        <div class="chat-item-info-nick">客服：小萝莉 <span class="time">2020年3月10日12:47:07</span></div>
+                    </div>
+                    <div class="chat-item-detail">
+                        <div class="chat-item-user">
+                            <div class="chat-item-user-thumb">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                        </div>
+                        <div class="chat-item-content">
+                            sdasasdassddasdadsdsdasdadadaddsdasdadadasdadassssssssssssssssssssssssssss
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-for-user chat-item">
+                    <div class="chat-item-info">
+                        <div class="chat-item-info-nick"> 我<span class="time">2020年3月10日12:47:07</span></div>
+                    </div>
+                    <div class="chat-item-detail">
+                        <div class="chat-item-content">
+                            sdasasdassddasdadsdsdasdadadaddsdasdadadasdadassssssssssssssssssssssssssss
+                        </div>
+                        <div class="chat-item-user">
+                            <div class="chat-item-user-thumb">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-for-server chat-item">
+                    <div class="chat-item-info">
+                        <div class="chat-item-info-nick">客服：小萝莉 <span class="time">2020年3月10日12:47:07</span></div>
+                    </div>
+                    <div class="chat-item-detail">
+                        <div class="chat-item-user">
+                            <div class="chat-item-user-thumb">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                        </div>
+                        <div class="chat-item-content">
+                            sdasasdassddasdadsdsdasdadadaddsdasdadadasdadassssssssssssssssssssssssssss
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-for-user chat-item">
+                    <div class="chat-item-info">
+                        <div class="chat-item-info-nick"> 我<span class="time">2020年3月10日12:47:07</span></div>
+                    </div>
+                    <div class="chat-item-detail">
+                        <div class="chat-item-content">
+                            sdasasdassddasdadsdsdasdadadaddsdasdadadasdadassssssssssssssssssssssssssss
+                        </div>
+                        <div class="chat-item-user">
+                            <div class="chat-item-user-thumb">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-for-server chat-item">
+                    <div class="chat-item-info">
+                        <div class="chat-item-info-nick">客服：小萝莉 <span class="time">2020年3月10日12:47:07</span></div>
+                    </div>
+                    <div class="chat-item-detail">
+                        <div class="chat-item-user">
+                            <div class="chat-item-user-thumb">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                        </div>
+                        <div class="chat-item-content">
+                            sdasasdassddasdadsdsdasdadadaddsdasdadadasdadassssssssssssssssssssssssssss
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-for-user chat-item">
+                    <div class="chat-item-info">
+                        <div class="chat-item-info-nick"> 我<span class="time">2020年3月10日12:47:07</span></div>
+                    </div>
+                    <div class="chat-item-detail">
+                        <div class="chat-item-content">
+                            sdasasdassddasdadsdsdasdadadaddsdasdadadasdadassssssssssssssssssssssssssss
+                        </div>
+                        <div class="chat-item-user">
+                            <div class="chat-item-user-thumb">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-tools">
+                <button class="btn"> <span class="glyphicon glyphicon-font"></span></button>
+                <button class="btn"><span class="glyphicon glyphicon-picture"></span></button>
+                <button class="btn"><span class="glyphicon glyphicon-earphone"></span></button>
+                工具栏
+            </div>
+            <div class="chat-input">
+                <div class="chat-input-content">
+                    <textarea id="message" class="form-control" cols="30" rows="4"></textarea>
+                </div>
+                <div class="chat-input-btn">
+                    <button class="btn btn-success" id="sendMessage">发送(Shfit + Enter)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="/chat/socket.io.js"></script>
+    <script src="js/js.cookie.min.js"></script>
+    <script src="js/client.js"></script>
+</body>
+</html>
