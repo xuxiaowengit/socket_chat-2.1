@@ -18,7 +18,7 @@ function renderClient(data) {
     let htmlStr2 = "";
     let htmlStr1="";
     $.each(data.data, (index, item) => {
-        htmlStr += `<div class="person" data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}">${index + 1}. ${item.nick}  <span class="badge">n</span></div>`;
+        htmlStr += `<div class="person " data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}">${index + 1}. ${item.nick}  <span class="badge">n</span></div>`;
         htmlStr1 = ` <li class="sidebar-brand" style="text-decoration: node;list-style: none;"><a href="#" id='h4'><h4 class="user-count">在线游客(<span class="count">100</span>)`+
                     `<span class="glyphicon glyphicon-chevron-left is-open animated  active fadeInLeft"data-toggle="offcanvas" id="close"></span></h4></a></li>`;
         htmlStr2 += `<li class="person" data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}"><a href="#"><i class="fa fa-fw fa-user"></i>${index+1}. ${item.nick}<span class="badge">n</span></a></li>`;
@@ -55,11 +55,17 @@ function choeseUser(this2) {
         sid = sid.filter((item) => {
             return item != $(this2).attr("data-sid");
         })
+        $(this2).children(':first').children(":last").remove();
     } else {
         $(this2).addClass('on')
         uuid.push($(this2).attr("data-uid"))
         sid.push($(this2).attr("data-sid"))
-
+        var  person=$('.person');
+        for(i=0;i<person.length;i++){
+            // console.log(person[i])
+            $(person).eq(i).children(':first').children(':last').remove(); //元素对象集合指能用EQ选择不能直接下标
+        }
+        $(this2).children(':first').append(`<span class=" glyphicon glyphicon-ok"></span>`)
     }
     console.log(uuid, sid)
 

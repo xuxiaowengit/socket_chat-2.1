@@ -39,7 +39,7 @@ var str1 = `   <div class="chat-for-user chat-item">
 
     // 设置滚动条
    setScorll()
-   $("#message").val()
+   $("#message").val('')
 })
 
 //监听来自于客服回复的事件推送
