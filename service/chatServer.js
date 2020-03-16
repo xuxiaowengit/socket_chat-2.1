@@ -4,7 +4,8 @@ const io = require("socket.io");
 
 // Socket.io 的配置参数
 const options = {
-    path:"/chat"
+    path:"/chat",
+    httpOnly: false
 }
 
 let chatServer = io(httpServer,options);

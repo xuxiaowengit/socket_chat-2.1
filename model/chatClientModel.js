@@ -11,18 +11,18 @@ const insertClientOnLine = (data)=>{//data 就是执行操作的时候需要记�
 //查询当前uuid是否一个新用户
 const queryClinetUUID = ( uuid )=>{
     const sql = `SELECT * FROM clients WHERE uuid ='${uuid}';`;
-    console.log('查询是否为新用户')
+    console.log('查询是否为新用户',uuid)
     return query(sql);
 }
 
-//更新用户的在线状态
+//更新用户的在线状态 退出时
 const updateClientStatus = ( uuid ,sid )=>{
     const sql = `UPDATE clients SET status='0' WHERE uuid = '${uuid}' AND sid='${sid}' AND status =1;`;
     console.log('更新用户在线')
     return query(sql);
 }
 
-//更新用户的在线状态
+//更新用户的在线状态  同一个客户机多个连接
 const updateClientSid = ( uuid ,sid )=>{
     const sql = `UPDATE clients SET sid='${sid}' WHERE uuid = '${uuid}'  AND status =1;`;
     console.log('更新用户在线SID',sid)

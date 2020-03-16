@@ -2,7 +2,7 @@
     position: fixed;
     top: 50px;
     left: 0;
-    width: 240px;
+    /* width: 240px; */
     height: 600px;
    z-index: +1;
     border: 1px solid #ccc;
@@ -55,14 +55,16 @@
     float: right;
     margin-top: 5px;
     margin-right: 10px;
+    background-color: white;
+
 }
 
 #user-container .user-list .person.on a {
     /* background-color: #4789c0; */
     color: #fff;
 }
-#user-container .user-list .person.on  {
-    background-color: #4789c0;
+#user-container .user-list div.on  {
+    background-color: #d7dde2;
 }
 #user-container{
     z-index: +100;

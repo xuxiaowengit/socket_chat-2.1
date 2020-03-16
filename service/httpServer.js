@@ -18,10 +18,12 @@ const server = http.createServer(app);
 app.use(express.static(path.join(process.cwd(),"static")));
 
 app.use(cookieParser());
-//配置一个自定义express中间件 ：用于检测用户是否具有uuid cookie ，如果没有，则创建一个uuid
-app.use(createUUID());
+
 
 //初始化路由
 routerInit(app);
+
+//配置一个自定义express中间件 ：用于检测用户是否具有uuid cookie ，如果没有，则创建一个uuid
+app.use(createUUID());
 
 module.exports = server;

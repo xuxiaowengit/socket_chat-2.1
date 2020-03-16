@@ -1,11 +1,15 @@
 //前台 - 客户端的clinet.js
-
+// let socket = io.connect("http://120.79.139.240:300?type=client", {
+//     path: "/chat"
+// });
 let socket = io.connect("http://127.0.0.1:300?type=server", {
-    path: "/chat"
+    path: "/chat",
+    httpOnly: false
 });
 
+
 socket.on("client-online-event", (data) => {
-    console.log("游客上线推送...", data);
+    console.log("游客上线推送收到...", data);
     //渲染页面内容
     renderClient(data); //主动推送
 })
@@ -16,16 +20,16 @@ socket.on("client-online-event", (data) => {
 function renderClient(data) {
     let htmlStr = "";
     let htmlStr2 = "";
-    let htmlStr1="";
+    let htmlStr1 = "";
     $.each(data.data, (index, item) => {
-        htmlStr += `<div class="person " data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}">${index + 1}. ${item.nick}  <span class="badge">n</span></div>`;
-        htmlStr1 = ` <li class="sidebar-brand" style="text-decoration: node;list-style: none;"><a href="#" id='h4'><h4 class="user-count">在线游客(<span class="count">100</span>)`+
-                    `<span class="glyphicon glyphicon-chevron-left is-open animated  active fadeInLeft"data-toggle="offcanvas" id="close"></span></h4></a></li>`;
-        htmlStr2 += `<li class="person" data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}"><a href="#"><i class="fa fa-fw fa-user"></i>${index+1}. ${item.nick}<span class="badge">n</span></a></li>`;
+        htmlStr += `<div class="person " data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}">${index + 1}. ${item.nick}&nbsp;(UID:${item.uuid.substr(item.uuid.length-4)})(SID:${item.sid.substr(item.sid.length-4)})&nbsp;<span class="badge bg-default">n</span></div>`;
+        htmlStr1 = ` <li class="sidebar-brand" style="text-decoration: node;list-style: none;"><a href="#" id='h4'><h4 class="user-count">在线游客(<span class="count">100</span>)` +
+            `<span class="glyphicon glyphicon-chevron-left is-open animated  active fadeInLeft"data-toggle="offcanvas" id="close"></span></h4></a></li>`;
+        htmlStr2 += `<li class="person" data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}"><a href="#"><i class="fa fa-fw fa-user"></i>${index+1}. ${item.nick}&nbsp;(${item.uuid.substr(item.uuid.length-4)})(SID:${item.sid.substr(item.sid.length-4)})&nbsp;<span class="badge bg-default">n</span></a></li>`;
     });
     //插入
-    $(".user-list").html(htmlStr);
-    $(".user-list2").html(htmlStr1+htmlStr2);
+    $(".user-list").html(htmlStr);//第一个在线列表添加
+    $(".user-list2").html(htmlStr1 + htmlStr2);//第2个在线列表添加
     $(".user-count  span.count ").html(data.data.length); //更新在线人数
 }
 
@@ -35,7 +39,7 @@ let sid = [];
 $('#user-container .user-list ').on('click', 'div.person', function (e) {
     //    console.log(e)
     console.log("div", this)
-    var index=$(this).index()
+    var index = $(this).index()
     choeseUser(this)
 })
 $('#wrapper .user-list2 ').on('click', 'li.person', function (e) {
@@ -45,9 +49,17 @@ $('#wrapper .user-list2 ').on('click', 'li.person', function (e) {
 })
 
 
+// 监听windows 窗口缩放
+window.onresize =function(){
+    console.log('窗口缩放了')
+    uuid = [];
+    sid = [];
+
+}
+   
+
 // 共同处理列表被单击后的切换类及添加或删除数组
 function choeseUser(this2) {
-    // console.log("this2",this2)
     if ($(this2).hasClass('on')) {
         $(this2).removeClass('on')
 
@@ -62,33 +74,30 @@ function choeseUser(this2) {
         $(this2).addClass('on')
         uuid.push($(this2).attr("data-uid"))
         sid.push($(this2).attr("data-sid"))
-        var  person=$('.person');
-        // for(i=0;i<person.length;i++){
-        //     // console.log(person[i])
-        //     $(person).eq(i).children(':first').children(':last').remove(); //元素对象集合指能用EQ选择不能直接下标
-        // }
-      if( $(this2).children(':first').children(':first').hasClass(' glyphicon-ok')){
-        $(this2).children(':first').children(':first').remove();
-          console.log('含有 glyphicon-ok类')
-      }else{
-          console.log('不含有glyphicon类')
-        $(this2).children(':first').append(`<span class=" glyphicon glyphicon-ok"></span>`)
-      }
+        var person = $('.person');
+     
+        if ($(this2).children(':first').children(':first').hasClass(' glyphicon-ok')) {
+            $(this2).children(':first').children(':first').remove();
+            console.log('含有 glyphicon-ok类')
+        } else {
+            console.log('不含有glyphicon类')
+            $(this2).children(':first').append(`<span class=" glyphicon glyphicon-ok"></span>`)
+        }
 
     }
     console.log(uuid, sid)
 
     // 获取选定客户的聊天记录
     $.ajax({
-        url:'/api/getServertChat',
-        success(data){
-         console.log('获取到选定客户的历史聊天记录:',data)
-         $('#chat-content').html("");
-        for(var i=0;i<data.data.length;i++){
-          if(data.data[i].from_type=='client'){
-               var server_ms=`<div class="chat-for-server chat-item">
+        url: '/api/getServertChat',
+        success(data) {
+            console.log('获取到选定客户的历史聊天记录:', data)
+            $('#chat-content').html("");
+            for (var i = 0; i < data.data.length; i++) {
+                if (data.data[i].from_type == 'client') {
+                    var server_ms = `<div class="chat-for-server chat-item">
                <div class="chat-item-info">
-                   <div class="chat-item-info-nick">`+data.data[i].nick +`<span class="time">`+data.data[i].time+`</span></div>
+                   <div class="chat-item-info-nick">` + data.data[i].nick + `<span class="time">` + data.data[i].time + `</span></div>
                </div>
                <div class="chat-item-detail">
                    <div class="chat-item-user">
@@ -97,21 +106,21 @@ function choeseUser(this2) {
                        </div>
                    </div>
                    <div class="chat-item-content">
-                      `+data.data[i].content+`
+                      ` + data.data[i].content + `
                    </div>
                </div>
                </div>`;
-              
-            $('#chat-content').append(server_ms)
-             
-          }else if(data.data[i].from_type=='server'){ //一定要双== 不然几十赋值了
-              let str=` <div class="chat-for-user chat-item">
+
+                    $('#chat-content').append(server_ms)
+
+                } else if (data.data[i].from_type == 'server') { //一定要双== 不然几十赋值了
+                    let str = ` <div class="chat-for-user chat-item">
               <div class="chat-item-info">
-                  <div class="chat-item-info-nick"> 我<span class="time">`+data.data[i].time+`</span></div>
+                  <div class="chat-item-info-nick"> 我<span class="time">` + data.data[i].time + `</span></div>
               </div>
               <div class="chat-item-detail">
                   <div class="chat-item-content">
-                      `+data.data[i].content+`
+                      ` + data.data[i].content + `
                   </div>
                   <div class="chat-item-user">
                       <div class="chat-item-user-thumb">
@@ -120,25 +129,19 @@ function choeseUser(this2) {
                   </div>
               </div>
           </div>`
-          $('#chat-content').append(str)
-          }
-
-
-        }
-
-    
-           
-       var time=setTimeout(()=>{
-        setScorll();
-       },100)
-
+                    $('#chat-content').append(str)
+                }
+            }
+            var time = setTimeout(() => {
+                setScorll();
+            }, 100)
         },
-        error(res){
-           console.log('请求获取选定客户的历史记录失败',res)
+        error(res) {
+            console.log('请求获取选定客户的历史记录失败', res)
         }
     })
 
-   
+
 }
 
 // hu请求用户在线明单
@@ -170,12 +173,12 @@ $("#sendMessage").click(function () {
     } else {
         uuid2 = uuid;
         sid2 = sid;
-        data.other='定向发送'
-        data.to= {
-                uuid: uuid2,
-                sid: sid2
-            }
-        
+        data.other = '定向发送'
+        data.to = {
+            uuid: uuid2,
+            sid: sid2
+        }
+
     }
 
 
@@ -185,13 +188,13 @@ $("#sendMessage").click(function () {
     socket.emit("server-message", data);
 
 
-    let str=` <div class="chat-for-user chat-item">
+    let str = ` <div class="chat-for-user chat-item">
     <div class="chat-item-info">
-        <div class="chat-item-info-nick"> 我<span class="time">`+new Date()+`</span></div>
+        <div class="chat-item-info-nick"> 我<span class="time">` + new Date() + `</span></div>
     </div>
     <div class="chat-item-detail">
         <div class="chat-item-content">
-            `+content+`-<span>`+ data.other+`</span>
+            ` + content + `-<span>` + data.other + `</span>
         </div>
         <div class="chat-item-user">
             <div class="chat-item-user-thumb">
@@ -211,10 +214,10 @@ $("#sendMessage").click(function () {
 // 
 socket.on("clinet-message-push", (data) => {
     console.log("已经收到游客的消息", data);
-    var time=new Date(data.time)
-    var server_ms=`<div class="chat-for-server chat-item">
+    var time = new Date(data.time)
+    var server_ms = `<div class="chat-for-server chat-item">
     <div class="chat-item-info">
-        <div class="chat-item-info-nick">`+data.nick +`<span class="time">`+time+`</span></div>
+        <div class="chat-item-info-nick">` + data.nick + `<span class="time">` + time + `</span></div>
     </div>
     <div class="chat-item-detail">
         <div class="chat-item-user">
@@ -223,15 +226,15 @@ socket.on("clinet-message-push", (data) => {
             </div>
         </div>
         <div class="chat-item-content">
-           `+data.content+`
+           ` + data.content + `
         </div>
     </div>
     </div>`;
-   
- $('#chat-content').append(server_ms)
+
+    $('#chat-content').append(server_ms)
 
 
- setScorll()
+    setScorll()
 })
 
 socket.on("message", (data) => {
@@ -254,15 +257,10 @@ $.ajax({
 
 
 // 滚动条设置函数
-function setScorll(){
-    var chat_item=document.getElementsByClassName('chat-item');
-    var itemH=$('#chat-content .chat-item').outerHeight(true)
-    var  socrollH=(chat_item.length)* (itemH)
-    console.log("scroll：",socrollH,itemH,chat_item.length)
+function setScorll() {
+    var chat_item = document.getElementsByClassName('chat-item');
+    var itemH = $('#chat-content .chat-item').outerHeight(true)
+    var socrollH = (chat_item.length) * (itemH)
+    console.log("scroll：", socrollH, itemH, chat_item.length)
     $('#chat-content').scrollTop(socrollH)
 }
-
-
-
-
- 
