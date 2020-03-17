@@ -18,10 +18,10 @@
 
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
-  
+
     <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
     <!-- <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script> -->
-  
+
     <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
     <!-- <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
 
     <header>
         <div class="container" id="haederTitle">
-            Node.js + Express + Socket.io + Mysql 构建在线客服聊天系统 ( 客服端 )
+            诚品鲜-在线客服聊天系统 ( 客服端 )
         </div>
     </header>
     <div id="wrapper" class="bg-info" style="">
@@ -46,8 +46,7 @@
                 <li class="sidebar-brand" style="text-decoration: node;list-style: none;">
                     <a href="#" id='h4'>
                         <h4 class="user-count">在线游客(<span class="count">暂无客户</span>)
-                            <span class="glyphicon glyphicon-chevron-left is-open animated  active fadeInLeft"
-                                data-toggle="offcanvas" id="close"></span>
+                            <span class="glyphicon glyphicon-chevron-left is-open animated  active fadeInLeft" data-toggle="offcanvas" id="close"></span>
                         </h4>
                     </a>
                 </li>
@@ -65,8 +64,7 @@
 
 
     <div id="user-container" class="is-open animated  active fadeInLeft" style="">
-        <h4 class="user-count" style="text-indent: 1rem;">在线游客(<span style="padding:0 1rem 0 0;"
-                class="count">暂无客户</span>)<span class="glyphicon chevron-left" id="close1"></span>
+        <h4 class="user-count" style="text-indent: 1rem;">在线游客(<span style="padding:0 1rem 0 0;" class="count">暂无客户</span>)<span class="glyphicon chevron-left" id="close1"></span>
         </h4>
         <div class="user-list" data-toggle="tooltip" data-placement="bottom" title="单击用户列表进行对话">
         </div>
@@ -130,21 +128,19 @@
     </div>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            var trigger = $('.hamburger');//汉堡按钮
+        $(document).ready(function() {
+            var trigger = $('.hamburger'); //汉堡按钮
             // // 小屏左侧栏
-            $('#wrapper').on('click','.hamburger',function () {
-               trigger.toggleClass('is-closed')
-               $('#wrapper').toggleClass('toggled')
+            $('#wrapper').on('click', '.hamburger', function() {
+                trigger.toggleClass('is-closed')
+                $('#wrapper').toggleClass('toggled')
             });
-           $('#wrapper').on('click','#close',function () {
+            $('#wrapper').on('click', '#close', function() {
                 console.log('判断toggled')
                 $('#wrapper').toggleClass('toggled')
                 trigger.toggleClass('is-closed')
             });
         });
-
-
     </script>
 
     <script src="js/jquery-1.12.4.min.js"></script>
