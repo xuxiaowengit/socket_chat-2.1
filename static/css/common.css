@@ -272,6 +272,30 @@ header {
     }
     #wrapper {
         display: block;
+        width: auto;
+    }
+    #wrapper #sidebar-wrapper {
+        /* width: auto; */
+    }
+    #wrapper #sidebar-wrapper .sidebar-nav {
+        /* width: auto; */
+    }
+    #wrapper #sidebar-wrapper .sidebar-nav li {
+        position: relative;
+    }
+    #wrapper #sidebar-wrapper .sidebar-nav li a {
+        /* width: auto; */
+        font-size: 1rem;
+        white-space: nowrap;
+        padding-right: 2px;
+    }
+    #wrapper #sidebar-wrapper .sidebar-nav li a span.badge {
+        white-space: nowrap;
+        float: right;
+        position: absolute;
+        top: -3px;
+        right: -2px;
+        margin-left: 5px;
     }
     #user-container {
         display: none;
