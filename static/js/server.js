@@ -26,17 +26,17 @@ socket.on("client-online-event", (data) => {
 function renderClient(data) {
     let htmlStr = "";
     let htmlStr2 = "";
-    let htmlStr1 = "";
+    let htmlStr1 = ` <li class="sidebar-brand" style="text-decoration: node;list-style: none;"><a href="#" id='h4'><h4 class="user-count">在线游客(<span class="count">100</span>)` +
+        `<span class="glyphicon glyphicon-chevron-left is-open animated  active fadeInLeft"data-toggle="offcanvas" id="close"></span></h4></a></li>`;
     $.each(data.data, (index, item) => {
         htmlStr += `<div class="person " data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}">${index + 1}. ${item.nick}&nbsp;(UID:${item.uuid.substr(item.uuid.length-4)})(SID:${item.sid.substr(item.sid.length-4)})&nbsp;<span class="badge bg-default">n</span></div>`;
-        htmlStr1 = ` <li class="sidebar-brand" style="text-decoration: node;list-style: none;"><a href="#" id='h4'><h4 class="user-count">在线游客(<span class="count">100</span>)` +
-            `<span class="glyphicon glyphicon-chevron-left is-open animated  active fadeInLeft"data-toggle="offcanvas" id="close"></span></h4></a></li>`;
         htmlStr2 += `<li class="person" data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}"><a href="#"><i class="fa fa-fw fa-user"></i>${index+1}. ${item.nick}&nbsp;(${item.uuid.substr(item.uuid.length-4)})(SID:${item.sid.substr(item.sid.length-4)})&nbsp;<span class="badge bg-default">n</span></a></li>`;
     });
     //插入
     $(".user-list").html(htmlStr); //第一个在线列表添加
-    $(".user-list2").html(htmlStr1 + htmlStr2); //第2个在线列表添加
+    $(".user-list2").html(htmlStr1 + htmlStr2); //第2个在线列表添加 另外加标题头
     $(".user-count  span.count ").html(data.data.length); //更新在线人数
+
 }
 
 // 点击列表用户 获取对应用户信息
@@ -161,6 +161,7 @@ $.ajax({
 
 //绑定发送事件
 $("#sendMessage").click(function() {
+
     var content = $("#message").val();
     var uuid2 = [],
         sid2 = [];
@@ -172,29 +173,28 @@ $("#sendMessage").click(function() {
             sid: sid2
         }
     };
-    console.log(sid, uuid)
-    if (sid.length < 1 && uuid.length < 1) { // $(".person").eq(0).attr("data-sid")
-        console.log('没有选择用户将让后台广播消息')
-        data.other = '群发消息'
-    } else {
-        uuid2 = uuid;
-        sid2 = sid;
-        data.other = '定向发送'
-        data.to = {
-            uuid: uuid2,
-            sid: sid2
+    if (content != '') {
+        console.log(sid, uuid)
+        if (sid.length < 1 && uuid.length < 1) { // $(".person").eq(0).attr("data-sid")
+            console.log('没有选择用户将让后台广播消息')
+            data.other = '群发消息'
+        } else {
+            uuid2 = uuid;
+            sid2 = sid;
+            data.other = '定向发送'
+            data.to = {
+                uuid: uuid2,
+                sid: sid2
+            }
+
         }
 
-    }
+        console.log('向后台发送信息给指定用户', data)
+            //向客服发送消息
+        socket.emit("server-message", data);
 
 
-
-    console.log('向后台发送信息给指定用户', data)
-        //向客服发送消息
-    socket.emit("server-message", data);
-
-
-    let str = ` <div class="chat-for-user chat-item">
+        let str = ` <div class="chat-for-user chat-item">
     <div class="chat-item-info">
         <div class="chat-item-info-nick"> 我<span class="time">` + new Date() + `</span></div>
     </div>
@@ -209,15 +209,30 @@ $("#sendMessage").click(function() {
         </div>
     </div>
     </div>`
-        //将自己的发言添加到信息框
-    $('#chat-content').append(str)
+            //将自己的发言添加到信息框
+        $('#chat-content').append(str)
 
-    // 刷新滚福条
-    setScorll()
-    $("#message").val("")
+        // 刷新滚福条
+        setScorll()
+        $("#message").val("")
+    } else {
+        showTip('发送内容不能为空', 'danger')
+
+    }
+
+
 })
 
-// 
+
+// 弹窗提示
+
+function showTip(tip, type) {
+    var $tip = $('#tip');
+    $tip.stop(true).prop('class', 'alert alert-' + type).text(tip).css('margin-left', -$tip.outerWidth() / 2).fadeIn(500).delay(2000).fadeOut(500);
+}
+
+
+// 监听客户信息
 socket.on("clinet-message-push", (data) => {
     console.log("已经收到游客的消息", data);
     var time = new Date(data.time)
@@ -270,3 +285,62 @@ function setScorll() {
     console.log("scroll：", socrollH, itemH, chat_item.length)
     $('#chat-content').scrollTop(socrollH)
 }
+
+
+
+// 列表选择
+ window.onload = function() {
+            console.log('onloadRun')
+            $('#kinerDatePickerInput1').kinerDatePicker({
+                clickMaskHide: true,
+                okHandler: function(vals, ctx) {
+                    console.log("确定选择:", vals, ctx);
+                    console.log('vals:', vals[0])
+                    var nb = vals[0]
+                    var font = {
+                            楷体: "KaiTi",
+                            宋体: "STFangsong",
+                            微软雅黑: "Microsoft YaHei",
+                            行书: 'STXingkai',
+                            华文彩云: 'STCaiyun'
+                        }
+                        // console.log(font[nb])
+                    $('#btn1').css('font-family', font[nb])
+                    $('#message').css('font-family', font[nb])
+                },
+                cancelHandler: function(ctx) {
+                    console.log("取消选择:", ctx);
+                }
+            });
+
+            $('#btn1').click(function() {
+                console.log($('#kinerDatePickerInput1').kinerDatePickerVal());
+                console.log('click')
+            });
+
+        }
+
+
+
+// 图片上传跳转
+        function getimage() {
+            window.location.href = '/image'
+        }
+
+
+// 小屏幕下开关左侧列表
+        $(document).ready(function() {
+            var trigger = $(".hamburger"); //汉堡按钮
+            // // 小屏左侧栏
+            $("#wrapper").on("click", ".hamburger", function() {
+                trigger.toggleClass("is-closed");
+                $("#wrapper").toggleClass("toggled");
+            });
+            $("#wrapper").on("click", "#close", function() {
+                console.log("判断toggled");
+                $("#wrapper").toggleClass("toggled");
+                trigger.toggleClass("is-closed");
+            });
+        });
+
+  

@@ -1,10 +1,11 @@
 const mysql = require("mysql");
 
 const pool = mysql.createPool({
-    // host:"127.0.0.1",
-    host: "120.79.139.240",
+    host:"127.0.0.1",
+    // host: "120.79.139.240",
     user: "root",
-    password: "root",
+    // password: "root",
+     password: "",
     database: "socket_chat",
     port: 3306
 })

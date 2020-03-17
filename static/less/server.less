@@ -64,7 +64,7 @@
 
 #user-container .user-list .person.on a {
     /* background-color: #4789c0; */
-    color: #fff;
+    color: white;
 }
 #user-container .user-list div.on  {
     // background-color: #f1f1f1;
@@ -74,6 +74,8 @@
 #user-container{
     z-index: +100;
     /* display: none; */
+    // background-color: rgb(182, 218, 129);
+    background-color: #9fc467;
  }
  #user-container h4 {
      line-height: 40px;
@@ -165,3 +167,20 @@
     /* color:rgb(41, 40, 40);
      color:whitesmoke; */
 } 
+.charbox{
+    position: relative;
+}
+
+#tip {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    min-width: 150px;
+    max-width: 300px;
+    margin-left: -100px;
+    padding:10px 20px;
+    border-radius: 5px;
+    border-color: rgb(236, 226, 226);
+    display: none;
+    z-index: 9999;
+}
