@@ -1,0 +1,162 @@
+#user-container{
+    position: fixed;
+    top: 50px;
+    left: 0;
+    /* width: 240px; */
+    height: 600px;
+   z-index: +1;
+    border: 1px solid #ccc;
+}
+
+#user-container .user-count{
+    line-height: 50px;
+    color: #999;
+    text-align: center;
+    font-size: 16px;
+    margin: 0;
+    color: #fff;
+    font-weight: bold;
+    background-color: #5f9ea0;
+}
+#user-container .user-list{
+    height: 540px;
+    overflow: auto;
+}
+#user-container .user-list li {
+    list-style: none;
+    color:rgb(76, 136, 101);
+}
+#user-container .user-list li span {
+     color:red;
+     background-color:orange;
+}
+#user-container .user-list li i {
+    margin-right: 10px;
+}
+#user-container .user-list li a {
+    width: 100%;
+    text-decoration: none;
+    list-style: none;
+    color:rgb(139, 228, 176);
+}
+#user-container .user-list .person{
+    line-height: 40px;
+    text-indent: 10px;
+    border-bottom: 1px dashed #ccc;
+    cursor: pointer;
+}
+
+#user-container .user-list .person:hover{
+    background-color: #f9f9f9;
+}
+
+#user-container .user-list .person .badge{
+    text-indent: 0;
+    float: right;
+    margin-top: 5px;
+    margin-right: 10px;
+    background-color: white;
+
+}
+
+#user-container .user-list .person.on a {
+    /* background-color: #4789c0; */
+    color: #fff;
+}
+#user-container .user-list div.on  {
+    background-color: #d7dde2;
+}
+#user-container{
+    z-index: +100;
+    /* display: none; */
+ }
+ #user-container h4 {
+     line-height: 40px;
+     padding: 0;
+     margin: 0;
+     position: relative;
+     display: flex;
+     justify-content: space-between;
+     justify-items: center;
+     align-items: center;
+     text-align: right;
+     background-color:red
+ }
+ #user-container h4 span:last-child{
+     /* margin-left: 20px; */
+     /* line-height: 40px; */
+     padding: 0;
+     right: 5px;
+     margin-right: 5px;
+     font-size: 25px;
+     vertical-align: middle;
+     justify-self: center;
+ }
+ #user-container h4 span:last-child:hover{
+     cursor: pointer;
+     color: black;
+ }
+
+
+ #h4 h4 {
+    line-height: 40px;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    text-align: right;
+}
+#h4 h4 span:last-child{
+    /* margin-left: 20px; */
+    /* line-height: 40px; */
+    padding: 0;
+    /* background-color:white; */
+    color: white;
+
+    right: 5px;
+    margin-right: 5px;
+    font-size: 25px;
+    vertical-align: middle;
+    justify-self: center;
+}
+#h4 h4 span:last-child:hover{
+    cursor: pointer;
+    color:orange;
+}
+
+.chat-tools{
+    /* bottom:5px; */
+    /* width: 100%;  */
+    padding: 1px ;
+    /* overflow: auto; */
+    padding:0 0 0 0;
+    margin: 0;
+    height: 5%;
+
+
+}
+#wrapper{
+    display: none;
+}
+#wrapper .navbar ul li:hover{
+    /* background-color:rgb(206, 203, 203); */
+    /* color:rgb(41, 40, 40); */
+   
+} 
+#wrapper .navbar ul li:first-child:hover{
+    background-color:#5f9ea0;
+    outline: none;
+    border:0;
+    box-shadow:0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+} 
+#wrapper .navbar ul li:hover a{
+    /* background-color:rgba(206, 203, 203, 0.972); */
+    /* color:rgb(41, 40, 40);
+     color:whitesmoke; */
+} 
