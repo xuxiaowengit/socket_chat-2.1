@@ -2,7 +2,13 @@
 // let socket = io.connect("http://120.79.139.240:300?type=client", {
 //     path: "/chat"
 // });
-let socket = io.connect("http://127.0.0.1:300?type=server", {
+// let socket = io.connect("http://127.0.0.1:300?type=server", {
+//     path: "/chat",
+//     httpOnly: false
+// });
+
+let url_host = window.location.host;
+let socket = io.connect("http://" + url_host + "?type=server", {
     path: "/chat",
     httpOnly: false
 });
@@ -28,21 +34,21 @@ function renderClient(data) {
         htmlStr2 += `<li class="person" data-sid="${item.sid}" title='请单击选择对话客户' data-uid="${item.uuid}"><a href="#"><i class="fa fa-fw fa-user"></i>${index+1}. ${item.nick}&nbsp;(${item.uuid.substr(item.uuid.length-4)})(SID:${item.sid.substr(item.sid.length-4)})&nbsp;<span class="badge bg-default">n</span></a></li>`;
     });
     //插入
-    $(".user-list").html(htmlStr);//第一个在线列表添加
-    $(".user-list2").html(htmlStr1 + htmlStr2);//第2个在线列表添加
+    $(".user-list").html(htmlStr); //第一个在线列表添加
+    $(".user-list2").html(htmlStr1 + htmlStr2); //第2个在线列表添加
     $(".user-count  span.count ").html(data.data.length); //更新在线人数
 }
 
 // 点击列表用户 获取对应用户信息
 let uuid = [];
 let sid = [];
-$('#user-container .user-list ').on('click', 'div.person', function (e) {
+$('#user-container .user-list ').on('click', 'div.person', function(e) {
     //    console.log(e)
     console.log("div", this)
     var index = $(this).index()
     choeseUser(this)
 })
-$('#wrapper .user-list2 ').on('click', 'li.person', function (e) {
+$('#wrapper .user-list2 ').on('click', 'li.person', function(e) {
     //    console.log(e)
     console.log('li', this)
     choeseUser(this)
@@ -50,13 +56,13 @@ $('#wrapper .user-list2 ').on('click', 'li.person', function (e) {
 
 
 // 监听windows 窗口缩放
-window.onresize =function(){
+window.onresize = function() {
     console.log('窗口缩放了')
     uuid = [];
     sid = [];
 
 }
-   
+
 
 // 共同处理列表被单击后的切换类及添加或删除数组
 function choeseUser(this2) {
@@ -75,7 +81,7 @@ function choeseUser(this2) {
         uuid.push($(this2).attr("data-uid"))
         sid.push($(this2).attr("data-sid"))
         var person = $('.person');
-     
+
         if ($(this2).children(':first').children(':first').hasClass(' glyphicon-ok')) {
             $(this2).children(':first').children(':first').remove();
             console.log('含有 glyphicon-ok类')
@@ -147,14 +153,14 @@ function choeseUser(this2) {
 // hu请求用户在线明单
 $.ajax({
     url: "/api/getOnlineClient",
-    success: function (data) {
+    success: function(data) {
         renderClient(data);
         console.log('请求到在线用户列表', data)
     }
 })
 
 //绑定发送事件
-$("#sendMessage").click(function () {
+$("#sendMessage").click(function() {
     var content = $("#message").val();
     var uuid2 = [],
         sid2 = [];
@@ -184,7 +190,7 @@ $("#sendMessage").click(function () {
 
 
     console.log('向后台发送信息给指定用户', data)
-    //向客服发送消息
+        //向客服发送消息
     socket.emit("server-message", data);
 
 
@@ -203,7 +209,7 @@ $("#sendMessage").click(function () {
         </div>
     </div>
     </div>`
-    //将自己的发言添加到信息框
+        //将自己的发言添加到信息框
     $('#chat-content').append(str)
 
     // 刷新滚福条
