@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,,user-scalable=no">
     <title>在线客服 - 用户端</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/client.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="./css/index.css?rev=ac6ed5b7b7b35822066a7c1ff4367280">
+    <link rel="stylesheet" href="css/index.css?rev=ac6ed5b7b7b35822066a7c1ff4367280">
 </head>
 
 <body>
@@ -19,8 +19,14 @@
     </header>
 
     <div class="container " style="">
-        <div class="chat-info  col-md-8 block" id='app' style="display:block;float:none;;line-height: 40px;">
-            <p class="glyphicon glyphicon-user"><span class="" style="padding:2px 10px;height: 30px;text-indent: rem;">UID: {{frist_http.from}}  SID: {{frist_http.sid}}</span></p>
+        <div class="chat-info col-lg-8 col-md-10 col-xs-11 col-sm-12 block" id='app' style="display:block;float:none;;">
+            <p class="glyphicon glyphicon-user">
+                <span class="" style="padding:2px ;height: 30px;">UID: {{frist_http.from}}</span>
+                <span class="big-show" style="padding:2px ;height: 30px;">SID: {{frist_http.sid}}</span>
+            </p>
+            <p class="glyphicon glyphicon-star small-show">
+                <span class="" style="padding:2px ;height: 30px;">SID: {{frist_http.sid}}</span>
+            </p>
         </div>
         <div class="chat col-lg-8 top center charbox " style="margin: 0 auto;display: block;float:none;">
             <div class="chat-content" style="padding-bottom: 0px;">
@@ -28,20 +34,20 @@
             </div>
             <strong id="tip" style="margin-left: 50%;"></strong>
             <div class="chat-tools" style="width: 100%;">
-                <button class="btn btn-primary glyphicon glyphicon-font  "title="请选择出生年月日"  startyear="华文" default-val="简体"  id="kinerDatePickerInput1" > </button>
+                <button class="btn btn-primary glyphicon glyphicon-font  " title="请选择出生年月日" startyear="华文" default-val="简体" id="kinerDatePickerInput1"> </button>
                 <button class="btn btn-danger glyphicon glyphicon-picture" onclick='getimage()'></button>
                 <button class="btn btn-success glyphicon glyphicon-earphone"><a class="tel" href="tel:0755-88888888"></a></button>
-                <button  class="btn btn-info glyphicon glyphicon-phone"><a class="tel" href="tel:13128755602"></a></button>
-                <button class="btn btn-warning glyphicon glyphicon-warning-sign"></button>
+                <button class="btn btn-info glyphicon glyphicon-phone"><a class="tel" href="tel:13128755602"></a></button>
+                <button class="btn btn-warning glyphicon glyphicon-envelope"><a class="tel" href="mailto:jekingxu@outlook.com"></a></button>
                 <button class="btn  btn-default glyphicon glyphicon-none">工具栏</button>
             </div>
 
             <div class="chat-input">
                 <div class="chat-input-content">
-                    <textarea class="form-control" id="message"@keyup.enter.native="send(222)"  v-keyup:13='sned(333)' cols="30" rows="4"></textarea>
+                    <textarea class="form-control" id="message" @keyup.enter.native="send(222)" v-keyup:13='sned(333)' cols="30" rows="4"></textarea>
                 </div>
                 <div class="chat-input-btn">
-                    <button class="btn btn-success" id='sendMessage'>发送(Shfit + Enter)</button>
+                    <button class="btn btn-success" id='sendMessage'>发送(Enter)</button>
                 </div>
             </div>
 
@@ -62,8 +68,8 @@
 
 
 
-    <div class="container app" >
-        <div class="kinerDatePickerInput "title="请选择出生年月日"  startyear="1950" default-val="1995-1-1"></div>
+    <div class="container app">
+        <div class="kinerDatePickerInput " title="请选择出生年月日" startyear="1950" default-val="1995-1-1"></div>
     </div>
 
 
@@ -80,7 +86,6 @@
     </script>
 
     <script>
-        
     </script>
 
 

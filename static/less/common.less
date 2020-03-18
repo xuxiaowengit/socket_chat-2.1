@@ -89,7 +89,8 @@ header {
 }
 
 .chat-input .chat-input-content textarea {
-    height: 100px;
+    min-height: 100px;
+    max-height: 80%;
     resize: none;
     font-size: 14px;
     font-weight: bold;
@@ -254,13 +255,26 @@ textarea{
     display:none;
 }
 
+@media screen and (min-width:921px) {
 #app{
     // top:60px;
     margin: 0 auto;
     padding: 0;
     // display:flex;
-    text-indent:1rem;
+    line-height: 40px;
+    p{
+        white-space: nowrap;
+        text-indent: 1em;
+        width: 100%;
+    }
+    p.small-show{
+        display: none;
+    }
 }
+}
+
+
+
 /* 移动段兼容自适应 */
 
 @media screen and (max-width:920px) {
@@ -273,16 +287,35 @@ textarea{
         position: relative;
         padding:0   ;
         #app{
-            text-indent:1rem;
-            margin: 0 auto;
-            padding:40px 0 0 0;
+            line-height: 20px;
+            margin: 0 ;
+            padding:50px 0 0 0;
             display:flex;
+            width: 100%;
+            
             p{
-                margin:0 auto;
-                // paading-top:60px;
-                // margin-top:50px;
+                line-height: 1rem;
                 margin:0 auto;
                 width:100%;
+                text-indent: 1em;
+                span{
+                   width: 100%;
+                   text-indent: 0;
+                   font-size: 0.2rem;
+                   color: rgba(0, 0, 0, 0.464);
+
+                }
+                z-index: +100;
+
+                .big-show{
+                    display: none;
+                }
+                .small-show{
+                    display: block;
+                }
+            }
+            p:last-child{
+                margin-top: 0;
             }
         }
     }
@@ -296,8 +329,9 @@ textarea{
         min-height: 1rem;
         display: flex;
         position: fixed;
-        bottom: 200px;
+        bottom: 15rem;
         right: 0;
+        z-index: +99;
     }
     .chat-tools button {
         vertical-align: middle;
@@ -307,9 +341,9 @@ textarea{
         margin: 2px 2px 5px 2px;
     }
     .chat-input {
-        max-height: 200px;
-        height: 30%;
-        min-height: 200px;
+        // max-height: 200px;
+        height: 15rem;
+        // min-height: 150px;
         display: flex;
         position: fixed;
         bottom: 0;
@@ -317,6 +351,7 @@ textarea{
         min-width: 100px;
         width: 100%;
         max-width: 100%;
+        
     }
     .form-control {
         height: 70%;

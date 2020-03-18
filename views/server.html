@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0  minimum-scale=1.0, maximum-scale=1.0,,user-scalable=no" />
     <title>在线客服 - 客服端</title>
     <!-- <script src="js/jquery-1.8.3.min.js"></script> -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/server.css" />
     <!-- <link rel="stylesheet" href="css/bs4.pop.css"> -->
     <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="./css/index.css?rev=ac6ed5b7b7b35822066a7c1ff4367280">
+    <link rel="stylesheet" href="css/index.css?rev=ac6ed5b7b7b35822066a7c1ff4367280">
 
     <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css"> -->
 
@@ -74,11 +74,11 @@
             </div>
             <strong id="tip" style="margin-left: 50%;"></strong>
             <div class="chat-tools" style="width: 100%;">
-                <button class="btn btn-primary glyphicon glyphicon-font "  title="请选择出生年月日"  startyear="华文" default-val="简体"  id="kinerDatePickerInput1" ></button>
+                <button class="btn btn-primary glyphicon glyphicon-font " title="请选择出生年月日" startyear="华文" default-val="简体" id="kinerDatePickerInput1"></button>
                 <button class="btn btn-danger glyphicon glyphicon-picture" onclick="getimage()"></button>
                 <button class="btn btn-success glyphicon glyphicon-earphone"></button>
                 <button class="btn btn-info glyphicon glyphicon-phone"></button>
-                <button class="btn btn-warning glyphicon glyphicon-warning-sign"></button>
+                <button class="btn btn-warning glyphicon glyphicon-envelope"><a class="tel" href="mailto:jekingxu@outlook.com"></a></button>
                 <button class="btn btn-default glyphicon glyphicon-none ">工具栏    </button>
             </div>
 
@@ -88,8 +88,8 @@
                 </div>
                 <div class="chat-input-btn">
                     <button class="btn btn-success" id="sendMessage">
-              发送(Shfit + Enter)
-            </button>
+                         发送(Enter)
+                     </button>
                 </div>
             </div>
         </div>
@@ -97,12 +97,12 @@
 
 
 
-    <div class="container app" >
-        <div class="kinerDatePickerInput "title="请选择出生年月日"  startyear="1950" default-val="1995-1-1"></div>
+    <div class="container app">
+        <div class="kinerDatePickerInput " title="请选择出生年月日" startyear="1950" default-val="1995-1-1"></div>
     </div>
 
 
-    
+
 
 
     <!-- <script src="js/jquery-1.12.4.min.js"></script> -->
@@ -127,4 +127,5 @@
 
 
 </body>
+
 </html>
